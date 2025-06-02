@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <link rel="stylesheet" href="assets/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>supremepoloo | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: linear-gradient(135deg, #18181b 0%, #7c3aed 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.8s;
+      overflow-x: hidden;
+    }
+
+    body {
+    cursor: url('assets/purple-electric.cur'), auto;
+  }
+  
+    /* Arka plan animasyonu */
+    .bg-anim {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle at 20% 30%, #7c3aed44 0%, transparent 60%),
+                  radial-gradient(circle at 80% 70%, #a78bfa33 0%, transparent 60%);
+      animation: bgmove 10s infinite alternate;
+      filter: blur(12px);
+    }
+    @keyframes bgmove {
+      0% { background-position: 20% 30%, 80% 70%; }
+      100% { background-position: 30% 40%, 70% 60%; }
+    }
+    .profile-card {
+      background: rgba(24, 24, 27, 0.85);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px 0 rgba(60, 0, 120, 0.25), 0 1.5px 8px 0 rgba(0,0,0,0.12);
+      padding: 2.5rem 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 320px;
+      max-width: 95vw;
+      transition: box-shadow 0.3s, transform 0.3s;
+      animation: fadeInCard 1s cubic-bezier(.4,0,.2,1);
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(6px);
+    }
+    @keyframes fadeInCard {
+      from { opacity: 0; transform: translateY(40px) scale(0.97);}
+      to { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    .profile-pic {
+      width: 110px;
+      height: 110px;
+      border-radius: 1rem;
+      object-fit: cover;
+      box-shadow: 0 4px 16px 0 rgba(124,58,237,0.18);
+      margin-bottom: 1.2rem;
+      border: 3px solid #7c3aed;
+      background: #222;
+      transition: box-shadow 0.3s, border 0.3s;
+    }
+    .username {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+      margin-bottom: 1.3rem;
+      text-shadow: 0 2px 8px rgba(124,58,237,0.12);
+      transition: color 0.3s;
+    }
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 0.2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(60,0,120,0.12);
+      border-radius: 0.7rem;
+      padding: 0.5rem;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 2px 8px 0 rgba(124,58,237,0.08);
+    }
+    .social-link:hover {
+      background: #7c3aed;
+      transform: translateY(-4px) scale(1.08);
+      box-shadow: 0 4px 16px 0 rgba(124,58,237,0.18);
+    }
+    .social-link img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      transition: filter 0.25s;
+      filter: drop-shadow(0 2px 8px rgba(124,58,237,0.10));
+    }
+    @media (max-width: 500px) {
+      .profile-card {
+        padding: 1.5rem 0.5rem 1.2rem 0.5rem;
+        min-width: 0;
+      }
+      .profile-pic {
+        width: 80px;
+        height: 80px;
+      }
+      .username {
+        font-size: 1.3rem;
+      }
+      .social-link img {
+        width: 28px;
+        height: 28px;
+      }
+      .social-links {
+        gap: 0.7rem;
+      }
+    }
+    /* Dil seçici stilleri */
+    .lang-btn {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      background: rgba(24,24,27,0.95);
+      border: none;
+      border-radius: 0.7rem;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px 0 rgba(124,58,237,0.08);
+      z-index: 10;
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .lang-btn:hover {
+      background: #7c3aed;
+      color: #fff;
+    }
+    .lang-dropdown {
+      position: absolute;
+      top: 60px;
+      left: 24px;
+      background: rgba(24,24,27,0.98);
+      border-radius: 0.7rem;
+      box-shadow: 0 4px 16px 0 rgba(124,58,237,0.18);
+      padding: 0.5rem 0.7rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 120px;
+      z-index: 20;
+      animation: fadeInCard 0.3s;
+    }
+    .lang-dropdown.active {
+      display: flex;
+    }
+    .lang-option {
+      background: none;
+      border: none;
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1rem;
+      padding: 0.4rem 0.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-option:hover {
+      background: #7c3aed;
+      color: #fff;
+    }
+    /* Sosyal ikonları için mobil/pc görünürlüğü */
+    .only-mobile { display: none; }
+    .only-desktop { display: inline-block; }
+    @media (max-width: 700px) {
+      .only-mobile { display: inline-block; }
+      .only-desktop { display: none; }
+    }
+    /* Discord Presence Widget */
+    .discord-widget-container {
+      margin-top: 2.2rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 0;
+    }
+    .discord-widget {
+      background: linear-gradient(135deg, #232136 0%, #7c3aed 100%);
+      border-radius: 1.2rem;
+      box-shadow: 0 4px 24px 0 rgba(124,58,237,0.18);
+      padding: 1.2rem 1.5rem;
+      min-width: 260px;
+      max-width: 350px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0 auto;
+      animation: fadeInCard 1.2s cubic-bezier(.4,0,.2,1);
+      border: 2px solid #7c3aed33;
+      transition: box-shadow 0.3s, border 0.3s;
+      backdrop-filter: blur(2px);
+    }
+    .discord-widget .discord-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 1rem;
+      margin-bottom: 0.7rem;
+      border: 2px solid #7c3aed;
+      background: #222;
+      object-fit: cover;
+    }
+    .discord-widget .discord-username {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(124,58,237,0.12);
+    }
+    .discord-widget .discord-status {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #bdbdf6;
+      text-align: center;
+    }
+    .discord-widget .discord-activity {
+      font-size: 0.98rem;
+      color: #c4b5fd;
+      margin-bottom: 0.2rem;
+      text-align: center;
+    }
+    .discord-widget .discord-listening {
+      font-size: 0.95rem;
+      color: #a78bfa;
+      text-align: center;
+    }
+    /* Müzik kutusu ve lyrics */
+    .music-info-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      width: 100%;
+      justify-content: center;
+    }
+    .music-box {
+      background: #7c3aed;
+      color: #fff;
+      border-radius: 0.7rem;
+      padding: 0.5rem 1.2rem;
+      font-weight: 700;
+      font-size: 1rem;
+      min-width: 120px;
+      box-shadow: 0 2px 8px 0 rgba(124,58,237,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Lyrics kutusu sağ alt köşe */
+    .floating-lyrics {
+      position: fixed;
+      right: 32px;
+      bottom: 32px;
+      z-index: 3000;
+      background: rgba(35,33,54,0.97);
+      border-radius: 1.1rem;
+      box-shadow: 0 4px 24px 0 rgba(124,58,237,0.18);
+      padding: 1.1rem 1.5rem;
+      min-width: 220px;
+      max-width: 340px;
+      color: #c4b5fd;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.08rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInCard 0.7s cubic-bezier(.4,0,.2,1);
+      border: 2px solid #7c3aed33;
+      backdrop-filter: blur(4px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .floating-lyrics-inner {
+      width: 100%;
+      text-align: center;
+      white-space: pre-line;
+      font-size: 1.08rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .floating-lyrics {
+        right: 50%;
+        transform: translateX(50%);
+        left: 0;
+        min-width: 0;
+        max-width: 95vw;
+        padding: 0.7rem 0.7rem;
+        font-size: 0.98rem;
+        bottom: 12px;
+      }
+    }
+    @media (max-width: 500px) {
+      .discord-widget {
+        padding: 0.7rem 0.5rem;
+        min-width: 0;
+        max-width: 98vw;
+      }
+      .discord-widget .discord-avatar {
+        width: 48px;
+        height: 48px;
+      }
+      .music-info-container {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+      }
+      .music-box {
+        min-width: 0;
+        max-width: 100%;
+      }
+    }
+    /* Müzik ikonu */
+    #music-toggle {
+      position: fixed;
+      top: 20px;
+      right: 70px;
+      width: 40px;
+      height: 40px;
+      background: url('assets/music-on.png') no-repeat center/contain;
+      cursor: pointer;
+      z-index: 1000;
+      transition: filter 0.2s;
+    }
+    #music-toggle.off {
+      background: url('assets/music-off.png') no-repeat center/contain;
+      filter: grayscale(1);
+    }
+    /* Terminal ikonu */
+    #terminal-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: url('https://cdn.jsdelivr.net/gh/feathericons/feather/icons/terminal.svg') no-repeat center/60% #232136;
+      border-radius: 0.7rem;
+      box-shadow: 0 2px 8px 0 rgba(124,58,237,0.12);
+      cursor: pointer;
+      z-index: 1001;
+      border: 2px solid #7c3aed;
+      transition: background 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #terminal-icon:hover {
+      background-color: #7c3aed;
+      box-shadow: 0 4px 16px 0 rgba(124,58,237,0.18);
+    }
+    /* Terminal penceresi */
+    #terminal-modal {
+      position: fixed;
+      top: 0; right: 0;
+      width: 420px;
+      max-width: 98vw;
+      height: 340px;
+      background: #18181b;
+      color: #c4b5fd;
+      border-radius: 0 0 0 1.2rem;
+      box-shadow: -4px 8px 32px 0 rgba(60, 0, 120, 0.25);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-40px) scale(0.98);
+      transition: opacity 0.4s cubic-bezier(.4,0,.2,1), transform 0.4s cubic-bezier(.4,0,.2,1);
+      overflow: hidden;
+    }
+    #terminal-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    #terminal-header {
+      background: #232136;
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #7c3aed44;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #terminal-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      margin-left: 1rem;
+      transition: color 0.2s;
+    }
+    #terminal-close:hover {
+      color: #7c3aed;
+    }
+    #terminal-body {
+      flex: 1;
+      padding: 1rem;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      font-size: 1.05rem;
+      background: #18181b;
+      overflow-y: auto;
+      white-space: pre-line;
+      outline: none;
+    }
+    #terminal-input-line {
+      display: flex;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+    #terminal-prompt {
+      color: #7c3aed;
+      font-weight: bold;
+      margin-right: 0.5rem;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+    }
+    #terminal-input {
+      background: none;
+      border: none;
+      color: #fff;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      font-size: 1.05rem;
+      outline: none;
+      flex: 1;
+    }
+    @media (max-width: 600px) {
+      #terminal-modal {
+        width: 98vw;
+        height: 60vw;
+        min-height: 220px;
+        border-radius: 0 0 0 1.2rem;
+      }
+    }
+    .bg-anim { pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div class="bg-anim"></div>
+  <canvas id="snow-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:0;"></canvas>
+  <button class="lang-btn" id="langBtn">🌐 <span id="langBtnText">TR</span></button>
+  <div class="lang-dropdown" id="langDropdown">
+    <button class="lang-option" data-lang="tr">Türkçe</button>
+    <button class="lang-option" data-lang="en">English</button>
+    <button class="lang-option" data-lang="es">Español</button>
+  </div>
+  <div class="profile-card">
+    <img src="assets/profile.jpg" alt="Profile Picture" class="profile-pic" />
+    <div class="username" id="username">supremepoloo</div>
+    <div class="social-links">
+      <!-- Discord Mobil -->
+      <a class="social-link only-mobile" href="https://discord.gg/t5QArZrePQ" target="_blank" title="Discord (Mobil)">
+        <img src="assets/discord_mobil.png" alt="Discord Mobile">
+      </a>
+      <!-- Discord PC -->
+      <a class="social-link only-desktop" href="https://discord.gg/t5QArZrePQ" target="_blank" title="Discord (PC)">
+        <img src="assets/discord_pc.png" alt="Discord PC">
+      </a>
+      <!-- YouTube PC -->
+      <a class="social-link only-desktop" href="https://www.youtube.com/@supremepoloo" target="_blank" title="YouTube (PC)">
+        <img src="assets/youtube_pc.png" alt="YouTube PC">
+      </a>
+      <!-- YouTube Mobil -->
+      <a class="social-link only-mobile" href="https://www.youtube.com/@supremepoloo" target="_blank" title="YouTube (Mobil)">
+        <img src="assets/youtube_mobil.png" alt="YouTube Mobile">
+      </a>
+    </div>
+    <!-- Discord Presence Widget -->
+    <div class="discord-widget-container">
+      <div class="discord-widget" id="discordWidget">
+        <img class="discord-avatar" id="discordAvatar" src="assets/profile.jpg" alt="Discord Avatar">
+        <div class="discord-username" id="discordWidgetUsername">supremepoloo</div>
+        <div class="discord-status" id="discordStatus">Çevrimdışı</div>
+        <div class="discord-activity" id="discordActivity"></div>
+        <div class="discord-listening" id="discordListening"></div>
+        <!-- Müzik kutusu -->
+        <div class="music-info-container" id="musicInfoContainer" style="display:none;">
+          <div class="music-box">
+            <span id="musicSong"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="floating-lyrics" id="floatingLyrics" style="display:none;">
+    <div class="floating-lyrics-inner">
+      <span id="floatingLyricsText"></span>
+    </div>
+  </div>
+  <div id="music-toggle" class="off"></div>
+  <div id="terminal-icon" title="Terminal"></div>
+  <div id="terminal-modal">
+    <div id="terminal-header">
+      Terminal
+      <button id="terminal-close" title="Kapat">&times;</button>
+    </div>
+    <div id="terminal-body"></div>
+    <div id="terminal-input-line">
+      <span id="terminal-prompt">&gt;</span>
+      <input id="terminal-input" type="text" autocomplete="off" autofocus />
+    </div>
+  </div>
+  <audio id="bg-music" src="assets/music.mp3" loop></audio>
+  <script>
+    // Dil verileri
+    const translations = {
+      tr: {
+        username: "supremepoloo",
+        discordMobile: "Discord (Mobil)",
+        discordPC: "Discord (PC)",
+        youtubeMobile: "YouTube (Mobil)",
+        youtubePC: "YouTube (PC)",
+        presence: {
+          offline: "Çevrimdışı",
+          online: "Çevrimiçi",
+          idle: "Boşta",
+          dnd: "Rahatsız Etmeyin",
+          playing: "Oynuyor: ",
+          listening: "Dinliyor: ",
+          streaming: "Yayın Yapıyor: ",
+          watching: "İzliyor: "
+        }
+      },
+      en: {
+        username: "supremepoloo",
+        discordMobile: "Discord (Mobile)",
+        discordPC: "Discord (PC)",
+        youtubeMobile: "YouTube (Mobile)",
+        youtubePC: "YouTube (PC)",
+        presence: {
+          offline: "Offline",
+          online: "Online",
+          idle: "Idle",
+          dnd: "Do Not Disturb",
+          playing: "Playing: ",
+          listening: "Listening: ",
+          streaming: "Streaming: ",
+          watching: "Watching: "
+        }
+      },
+      es: {
+        username: "supremepoloo",
+        discordMobile: "Discord (Móvil)",
+        discordPC: "Discord (PC)",
+        youtubeMobile: "YouTube (Móvil)",
+        youtubePC: "YouTube (PC)",
+        presence: {
+          offline: "Desconectado",
+          online: "En línea",
+          idle: "Ausente",
+          dnd: "No molestar",
+          playing: "Jugando: ",
+          listening: "Escuchando: ",
+          streaming: "Transmitiendo: ",
+          watching: "Viendo: "
+        }
+      }
+    };
+
+    // Dil seçici aç/kapat
+    const langBtn = document.getElementById('langBtn');
+    const langDropdown = document.getElementById('langDropdown');
+    const langBtnText = document.getElementById('langBtnText');
+    let currentLang = 'tr';
+
+    langBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langDropdown.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.lang-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentLang = btn.getAttribute('data-lang');
+        setLanguage(currentLang);
+        langDropdown.classList.remove('active');
+        updateDiscordWidget(lastPresenceData); // Widgetı da güncelle
+      });
+    });
+
+    function setLanguage(lang) {
+      langBtnText.textContent = lang.toUpperCase();
+      document.documentElement.lang = lang;
+      // Sosyal ikon title'larını güncelle
+      document.querySelectorAll('.social-link.only-mobile')[0].title = translations[lang].discordMobile;
+      document.querySelectorAll('.social-link.only-mobile')[1].title = translations[lang].youtubeMobile;
+      document.querySelectorAll('.social-link.only-desktop')[0].title = translations[lang].discordPC;
+      document.querySelectorAll('.social-link.only-desktop')[1].title = translations[lang].youtubePC;
+    }
+
+    // Sayfa ilk açıldığında Türkçe olarak başlat
+    setLanguage('tr');
+
+    // Sayfa dışında bir yere tıklanınca dropdown kapansın
+    document.addEventListener('click', function(e) {
+      if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+        langDropdown.classList.remove('active');
+      }
+    });
+
+    // -------- Discord Presence Widget --------
+    // Lanyard API ile Discord Presence çekme (kendi Discord ID'nizi girin)
+    const DISCORD_USER_ID = "1241710726112870521";
+    const discordWidget = document.getElementById('discordWidget');
+    const discordAvatar = document.getElementById('discordAvatar');
+    const discordWidgetUsername = document.getElementById('discordWidgetUsername');
+    const discordStatus = document.getElementById('discordStatus');
+    const discordActivity = document.getElementById('discordActivity');
+    const discordListening = document.getElementById('discordListening');
+    const musicInfoContainer = document.getElementById('musicInfoContainer');
+    const musicSong = document.getElementById('musicSong');
+    // Lyrics kutusu
+    const floatingLyrics = document.getElementById('floatingLyrics');
+    const floatingLyricsText = document.getElementById('floatingLyricsText');
+    let lastPresenceData = null;
+
+    // Lyrics zamanlı gösterim için değişkenler
+    let lyricsLines = [];
+    let lyricsTimes = [];
+    let lyricsInterval = null;
+    let lyricsStartTimestamp = null;
+    let lyricsCurrentLine = 0;
+
+    // Spotify kalan süre için değişkenler
+    let spotifyEndTimestamp = null;
+    let spotifyStartTimestamp = null;
+    let spotifyInterval = null;
+
+    async function fetchDiscordPresence() {
+      try {
+        const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
+        const data = await res.json();
+        if (data.success) {
+          lastPresenceData = data.data;
+          updateDiscordWidget(data.data);
+        } else {
+          setOfflineWidget();
+        }
+      } catch {
+        setOfflineWidget();
+      }
+    }
+
+    function updateDiscordWidget(data) {
+      // Avatar ve kullanıcı adı
+      discordAvatar.src = data.discord_user.avatar
+        ? `https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.png?size=128`
+        : "assets/profile.jpg";
+      discordWidgetUsername.textContent = data.discord_user.username + (data.discord_user.discriminator !== "0" ? "#" + data.discord_user.discriminator : "");
+
+      // Durum
+      let statusKey = data.discord_status;
+      let statusText = translations[currentLang].presence[statusKey] || translations[currentLang].presence["offline"];
+      discordStatus.textContent = statusText;
+
+      // Aktivite (oyun veya custom status)
+      let act = data.activities && data.activities.find(a => a.type === 0 && a.name);
+      if (act) {
+        discordActivity.textContent = translations[currentLang].presence.playing + act.name;
+      } else {
+        // Custom status göster
+        let custom = data.activities && data.activities.find(a => a.type === 4 && a.state);
+        if (custom) {
+          discordActivity.textContent = custom.state;
+        } else {
+          discordActivity.textContent = "";
+        }
+      }
+
+      // Spotify
+      if (data.listening_to_spotify && data.spotify) {
+        spotifyEndTimestamp = data.spotify.timestamps.end;
+        spotifyStartTimestamp = data.spotify.timestamps.start;
+        updateSpotifyLine(data.spotify.song, data.spotify.artist);
+        if (spotifyInterval) clearInterval(spotifyInterval);
+        spotifyInterval = setInterval(() => {
+          updateSpotifyLine(data.spotify.song, data.spotify.artist);
+        }, 1000);
+      } else {
+        discordListening.textContent = "";
+        if (musicInfoContainer) musicInfoContainer.style.display = "none";
+        floatingLyrics.style.display = "none";
+        if (spotifyInterval) clearInterval(spotifyInterval);
+        if (lyricsInterval) clearInterval(lyricsInterval);
+        spotifyEndTimestamp = null;
+        spotifyStartTimestamp = null;
+      }
+    }
+
+    function updateSpotifyLine(song, artist) {
+      if (!spotifyEndTimestamp || !spotifyStartTimestamp) {
+        if (musicInfoContainer) musicInfoContainer.style.display = "none";
+        floatingLyrics.style.display = "none";
+        if (lyricsInterval) clearInterval(lyricsInterval);
+        return;
+      }
+      const now = Date.now();
+      let secondsLeft = Math.floor((spotifyEndTimestamp - now) / 1000);
+      if (secondsLeft < 0) secondsLeft = 0;
+      const min = Math.floor(secondsLeft / 60);
+      const sec = secondsLeft % 60;
+      const timeStr = min + ":" + (sec < 10 ? "0" : "") + sec;
+
+      // Şarkı kutusu
+      if (musicInfoContainer && musicSong) {
+        musicInfoContainer.style.display = "flex";
+        musicSong.textContent = `${song} - ${artist} [${timeStr}]`;
+      }
+
+      // Lyrics API'den çek ve zamanlı göster
+      fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(artist)}/${encodeURIComponent(song)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.lyrics) {
+            // Zaman kodlu lyrics desteği (LRC) için satırları ve zamanları ayır
+            lyricsLines = [];
+            lyricsTimes = [];
+            const lines = data.lyrics.split('\n').filter(l => l.trim() !== "");
+            let lrcFormat = false;
+            for (let line of lines) {
+              const match = line.match(/^\[(\d{1,2}):(\d{2})(?:\.(\d{1,2}))?\](.*)$/);
+              if (match) {
+                lrcFormat = true;
+                const min = parseInt(match[1], 10);
+                const sec = parseInt(match[2], 10);
+                const ms = match[3] ? parseInt(match[3], 10) : 0;
+                const time = min * 60 + sec + ms / 100;
+                lyricsTimes.push(time);
+                lyricsLines.push(match[4].trim());
+              }
+            }
+            // Eğer LRC yoksa klasik şekilde her satırı eşit aralıkla göster
+            if (!lrcFormat) {
+              const totalDuration = Math.floor((spotifyEndTimestamp - spotifyStartTimestamp) / 1000);
+              const perLine = Math.max(Math.floor(totalDuration / lines.length), 2);
+              let acc = 0;
+              for (let l of lines) {
+                lyricsTimes.push(acc);
+                lyricsLines.push(l);
+                acc += perLine;
+              }
+            }
+            lyricsStartTimestamp = spotifyStartTimestamp;
+            lyricsCurrentLine = 0;
+            showLyricsLine();
+            floatingLyrics.style.display = "flex";
+            if (lyricsInterval) clearInterval(lyricsInterval);
+            lyricsInterval = setInterval(showLyricsLine, 500);
+          } else {
+            floatingLyrics.style.display = "none";
+            if (lyricsInterval) clearInterval(lyricsInterval);
+          }
+        })
+        .catch(() => {
+          floatingLyrics.style.display = "none";
+          if (lyricsInterval) clearInterval(lyricsInterval);
+        });
+
+      function showLyricsLine() {
+        if (!lyricsLines.length) {
+          floatingLyrics.style.display = "none";
+          if (lyricsInterval) clearInterval(lyricsInterval);
+          return;
+        }
+        // Şarkının başından geçen süre (saniye)
+        const elapsed = (Date.now() - lyricsStartTimestamp) / 1000;
+        // Hangi satırdayız?
+        let idx = 0;
+        for (let i = 0; i < lyricsTimes.length; i++) {
+          if (elapsed >= lyricsTimes[i]) idx = i;
+        }
+        if (idx !== lyricsCurrentLine) {
+          lyricsCurrentLine = idx;
+          floatingLyricsText.textContent = lyricsLines[lyricsCurrentLine];
+        }
+        // Şarkı bittiğinde veya lyrics bittiğinde kutuyu gizle
+        if (elapsed > lyricsTimes[lyricsTimes.length - 1] + 10) {
+          floatingLyrics.style.display = "none";
+          clearInterval(lyricsInterval);
+        } else {
+          floatingLyrics.style.display = "flex";
+        }
+      }
+    }
+
+    function setOfflineWidget() {
+      discordAvatar.src = "assets/profile.jpg";
+      discordWidgetUsername.textContent = "supremepoloo";
+      discordStatus.textContent = translations[currentLang].presence.offline;
+      discordActivity.textContent = "";
+      discordListening.textContent = "";
+      if (musicInfoContainer) musicInfoContainer.style.display = "none";
+      floatingLyrics.style.display = "none";
+      if (spotifyInterval) clearInterval(spotifyInterval);
+      if (lyricsInterval) clearInterval(lyricsInterval);
+      spotifyEndTimestamp = null;
+      spotifyStartTimestamp = null;
+    }
+
+    // Discord Presence'ı her 20 saniyede bir güncelle
+    fetchDiscordPresence();
+    setInterval(fetchDiscordPresence, 20000);
+
+    // ---- Müzik kontrolü ----
+    const music = document.getElementById('bg-music');
+    const toggle = document.getElementById('music-toggle');
+    let playing = false;
+
+    toggle.classList.add('off');
+
+    toggle.addEventListener('click', () => {
+      playing = !playing;
+      if (playing) {
+        music.play();
+        toggle.classList.remove('off');
+      } else {
+        music.pause();
+        toggle.classList.add('off');
+      }
+    });
+
+    music.addEventListener('ended', () => {
+      playing = false;
+      toggle.classList.add('off');
+    });
+
+    // -------- Terminal --------
+    const terminalIcon = document.getElementById('terminal-icon');
+    const terminalModal = document.getElementById('terminal-modal');
+    const terminalClose = document.getElementById('terminal-close');
+    const terminalBody = document.getElementById('terminal-body');
+    const terminalInput = document.getElementById('terminal-input');
+
+    // Discord ve Youtube bilgileri
+    const discordLink = "https://discord.gg/t5QArZrePQ";
+    const youtubeName = "@supremepoloo";
+
+    function openTerminal() {
+      terminalModal.classList.add('active');
+      setTimeout(() => terminalInput.focus(), 200);
+      terminalBody.innerHTML = "Hoş geldin! Komutlar: <br>!discord<br>!youtube<br>";
+    }
+    function closeTerminal() {
+      terminalModal.classList.remove('active');
+    }
+    terminalIcon.addEventListener('click', openTerminal);
+    terminalClose.addEventListener('click', closeTerminal);
+
+    // ESC ile kapat
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape" && terminalModal.classList.contains('active')) {
+        closeTerminal();
+      }
+    });
+
+    // Terminal komutları
+    terminalInput.addEventListener('keydown', function(e) {
+      if (e.key === "Enter") {
+        const cmd = terminalInput.value.trim();
+        terminalBody.innerHTML += "<br>&gt; " + cmd;
+        if (cmd === "!discord") {
+          terminalBody.innerHTML += `<br>Discord adresim: <a href="${discordLink}" target="_blank">${discordLink}</a>`;
+        } else if (cmd === "!youtube") {
+          terminalBody.innerHTML += `<br>YouTube ismim: <a href="https://www.youtube.com/${youtubeName}" target="_blank">${youtubeName}</a>`;
+        } else if (cmd === "clear") {
+          terminalBody.innerHTML = "";
+        } else if (cmd !== "") {
+          terminalBody.innerHTML += "<br>Bilinmeyen komut.";
+        }
+        terminalInput.value = "";
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+      }
+    });
+
+    // Terminal açıldığında input'a odaklan
+    terminalModal.addEventListener('transitionend', function() {
+      if (terminalModal.classList.contains('active')) {
+        terminalInput.focus();
+      }
+    });
+  </script>
+  <script src="main.js"></script> 
+  <footer style="width:100vw;position:fixed;bottom:0;left:0;z-index:3001;display:flex;justify-content:center;align-items:center;padding:0.4rem 0;background:rgba(24,24,27,0.92);backdrop-filter:blur(3px);">
+    <span style="font-family:'Montserrat',Arial,sans-serif;font-size:0.92rem;color:#bdbdf6;letter-spacing:0.03em;font-weight:400;">
+      Kompleks &copy; All rights reserved 2025
+    </span>
+  </footer>
+</body>
+</html>
