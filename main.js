@@ -82,3 +82,15 @@ function animateSnow() {
   requestAnimationFrame(animateSnow);
 }
 animateSnow();
+
+// --- Ziyaretçi Sayacı Fonksiyonu ---
+window.addEventListener('DOMContentLoaded', function() {
+  const visitorCountEl = document.getElementById('visitor-count');
+  if (visitorCountEl) {
+    let count = localStorage.getItem('visitor_count');
+    if (!count) count = 0;
+    count = parseInt(count, 10) + 1;
+    localStorage.setItem('visitor_count', count);
+    visitorCountEl.textContent = count;
+  }
+});
